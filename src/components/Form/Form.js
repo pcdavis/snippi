@@ -55,9 +55,9 @@ class Form extends Component {
             subtitle:this.state.subtitle,
             snippetText:this.state.snippetText,
         }
-    console.log('sumbit just sent a new snippet: ' + newSnippet)
+    //console.log('sumbit just sent a new snippet: ' + newSnippet)
     event.preventDefault();
-    console.log(newSnippet);
+    //console.log(newSnippet);
     this.props.receiveSnippet(newSnippet);
     this.setState({
                 name: '',

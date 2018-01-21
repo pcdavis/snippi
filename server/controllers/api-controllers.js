@@ -14,8 +14,8 @@ module.exports = {
             time: new Date()
         }
         snippets.push(newSnippet);
-        console.log(snippets);
-        res.status(200).send( "create success" );
+        //console.log(snippets);
+        res.status(200).send( snippets);
     },
 
     read: (req, res) => {

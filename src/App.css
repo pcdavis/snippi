@@ -22,6 +22,11 @@
   justify-content: center;
 }
 
+.snippetList{
+  width: 30vw;
+  margin: auto;
+  background-color: blue;
+}
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }

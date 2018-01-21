@@ -48,19 +48,23 @@ class App extends Component {
    this.handleNewSnippet = this.handleNewSnippet.bind(this);
   }//end constructor
 
+  
+
     handleGet = () => {
-      axios.get('/api/snippets')
-      .then( (response) => { 
-        this.setState({snippetsToDisplay: response.data});
-        console.log(this.state.snippetsToDisplay)})
+      axios.get('/api/snippets').then( (response) => {
+        this.setState({ snippetsToDisplay: response.data})
+      })
+        // this.setState({snippetsToDisplay: response.data});
+        //console.log(this.state.snippetsToDisplay)})
       .catch( (error) => { console.log("handleGet received an error")})
       };
 
 
     handleNewSnippet = (snippet) => {
+      // console.log("handleNewSnippet fired and received this: ")
+      // console.log(snippet)
         axios.post('/api/snippets/new',snippet)
         .then( (response) => { this.setState({snippetsToDisplay: response.data})})
-        .catch( (error) => { console.log("handleNewSnippet received an error")})
         };
   
 
@@ -88,9 +92,9 @@ class App extends Component {
                       onClick={ this.handleGet }>
                 Axios.Get Test
               </button>
-
+      <div className= "snippetList">
               <SnippetList snippetArray = {this.state.snippetsToDisplay} />
-
+      </div>
           
       
     </div> 

@@ -1,10 +1,12 @@
 const express = require('express'),
         bodyParser = require('body-parser'),
+        // cors = require('cors'),
         app = express(),
         control = require ('./controllers/api-controllers'),
         port = 3005;
 
 app.use(bodyParser.json());
+// app.use(cors);
 
 
 app.listen(port, () => {
