@@ -7,16 +7,15 @@ module.exports = {
         id++;
         let newSnippet = {
             id: id,
-            author: req.body.author,
+            name: req.body.name,
             title: req.body.title,
             subtitle: req.body.subtitle,
-            instructions: req.body.instructions,
-            time: new Date,
-            url: url,
-            tags: tags
-        };
-        snippets.unshift(newSnippet);
-        res.status(200).send( snippets );
+            snippetText: req.body.snippetText,
+            time: new Date()
+        }
+        snippets.push(newSnippet);
+        console.log(snippets);
+        res.status(200).send( "create success" );
     },
 
     read: (req, res) => {
