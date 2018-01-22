@@ -36,6 +36,7 @@ class Form extends Component {
                 title: '',
                 subtitle: '',
                 snippetText: '',
+                tags: ''
                
                     };//End of state   
                     
@@ -54,6 +55,7 @@ class Form extends Component {
             title:this.state.title,
             subtitle:this.state.subtitle,
             snippetText:this.state.snippetText,
+            tags:this.state.tags
         }
     //console.log('sumbit just sent a new snippet: ' + newSnippet)
     event.preventDefault();
@@ -64,6 +66,7 @@ class Form extends Component {
                 title: '',
                 subtitle: '',
                 snippetText: '',
+                tags: ''
     })
 
     }
@@ -108,6 +111,14 @@ class Form extends Component {
                     name = "snippetText" 
                     type="text" 
                     value={this.state.snippetText} 
+                    onChange={this.handleChange} />
+                    <br/>
+
+                <TextField
+                    hintText="Give it a tag"
+                    name = "tags" 
+                    type="text" 
+                    value={this.state.tags} 
                     onChange={this.handleChange} />
                     <br/>
                                    

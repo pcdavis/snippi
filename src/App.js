@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import axios from 'axios'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 import Form from './components/Form/Form';
 import SnippetList from './components/SnippetList/SnippetList'
 import './App.css';
@@ -13,41 +17,40 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-                  snippetsToDisplay: [
-                    {
-                      language: 'java',
-                      name: 'PETER',
-                      title: 'This is my snippet title ',
-                      subtitle: 'easy snippet for a quick form',
-                      snippetText: 'Hello World ',
-                      url: 'www.google.com',
-                      tags: 'js'      
-                    },
-                    {
-                      language: 'java',
-                      name: 'paul',
-                      title: 'react forms ',
-                      subtitle: 'easy snippet for a quick form',
-                      snippetText: 'lskdjf fsldkjs dfjdksfj dslkdjsdjf sdljf sldkfj ',
-                      url: 'www.google.com',
-                      tags: 'js'      
-                    },
-                    {
-                      language: 'java',
-                      name: 'paul',
-                      title: 'react forms ',
-                      subtitle: 'easy snippet for a quick form',
-                      snippetText: 'lskdjf fsldkjs dfjdksfj dslkdjsdjf sdljf sldkfj ',
-                      url: 'www.google.com',
-                      tags: 'js'      
-                    }
-                  ]
+                  searchTerm: '',
+                  sortByTerm: '',
+                  snippetsToDisplay: [ ]
                 }
     
    this.handleGet = this.handleGet.bind(this);
    this.handleNewSnippet = this.handleNewSnippet.bind(this);
+   this.handleSearch = this.handleSearch.bind(this);
+   this.handleSearch = this.handleSearch.bind(this);
   }//end constructor
 
+  componentWillMount(){
+    axios.get('/api/snippets').then( (response) => {
+      this.setState({ snippetsToDisplay: response.data})
+    })
+    .catch( (error) => { console.log("handleGet received an error")})
+  }
+
+  handleChange = (e) => {
+    this.setState({ [e.target.name] : e.target.value})
+  }
+
+  handleSearch = () => {
+    console.log('handleSEarch fired')
+    let searchParam = this.state.searchTerm;
+    console.log(searchParam)
+      axios.get(`/api/snippets/${searchParam}`).then( (response) => {
+      this.setState({ snippetsToDisplay: response.data})
+    })
+      // this.setState({snippetsToDisplay: response.data});
+      //console.log(this.state.snippetsToDisplay)})
+    .catch( (error) => { console.log("handleGet received an error")})
+
+  }
   
 
     handleGet = () => {
@@ -64,7 +67,7 @@ class App extends Component {
       // console.log("handleNewSnippet fired and received this: ")
       // console.log(snippet)
         axios.post('/api/snippets/new',snippet)
-        .then( (response) => { this.setState({snippetsToDisplay: response.data})})
+        // only use this line if you want to immediately update the list .then( (response) => { this.setState({snippetsToDisplay: response.data})})
         };
   
 
@@ -75,14 +78,28 @@ class App extends Component {
     return (
     <MuiThemeProvider>
 
-        <AppBar
-          title="SNIPPi"
-          iconClassNameRight="muidocs-icon-navigation-expand-more"
-        />
+       <div className= "appBar">
+          <AppBar
+            title="SNIPPi"
+            iconClassNameRight="muidocs-icon-navigation-expand-more"
+          />
+        <div className= "searchField" />
+            <FloatingActionButton mini={true} secondary={true} >
+            <ContentAdd />
+            </FloatingActionButton>
+       </div>
 
-    <div className="wrapper">
+    <div className="hero-wrapper">
         <div className="hero">
-            <h1>Making code easier|more fun to write | , one snippet at a time.</h1>
+            <h1>Making code easier|faster to write | , one snippet at a time.</h1>
+            <TextField
+                    hintText="Search by keyword"
+                    name = "searchTerm" 
+                    type="text" 
+                    value={this.state.searchTerm} 
+                    onChange={this.handleChange} />
+            <RaisedButton label="Submit" primary type = "submit" value= "Submit" onClick = {this.handleSearch} />
+            <div>{this.state.searchTerm}</div>
         </div>
         
     <div className="form-wrapper">
@@ -93,7 +110,7 @@ class App extends Component {
                 Axios.Get Test
               </button>
       <div className= "snippetList">
-              <SnippetList snippetArray = {this.state.snippetsToDisplay} />
+              <SnippetList sortByTerm = {this.state.sortByTerm} snippetArray = {this.state.snippetsToDisplay} />
       </div>
           
       

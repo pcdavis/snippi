@@ -9,14 +9,14 @@ class Snippet extends Component {
 
 
 
-            <Card>
+<Card>
   
     <CardTitle title={this.props.snippetObj.title} subtitle={this.props.snippetObj.subtitle} />
     <CardText>
     {this.props.snippetObj.snippetText}
     </CardText>
     
-  </Card>
+</Card>
 
             </div>
         );
