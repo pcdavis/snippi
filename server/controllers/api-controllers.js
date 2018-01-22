@@ -66,11 +66,11 @@ module.exports = {
         res.status(200).send( snippets );
     },
     
-    tags: (req, res) => {
+    searchTerm: (req, res) => {
          console.log("tag method fired")
-         console.log(req.params.tags)
+         console.log(req.params.term)
         let filterArray = snippets.filter( (snipp) => {
-            return snipp.tags == req.params.tags
+            return snipp.tags == req.params.term
         })
         console.log(filterArray)
         return res.status(200).send( filterArray );

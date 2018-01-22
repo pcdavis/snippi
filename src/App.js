@@ -8,7 +8,31 @@ import RaisedButton from 'material-ui/RaisedButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import Form from './components/Form/Form';
 import SnippetList from './components/SnippetList/SnippetList'
+import AppBar2 from './components/AppBar/AppBar2'
 import './App.css';
+
+
+/*
+Here are the things related to Extras.textRotate. It fails to compile. I think because it needs jquery. ask instructors.
+import Extras from './assets/Extras.js';
+here's the call to the function: textRotate(".rotate",1,"ease",5000,"#F30A49"
+<div className ="rotate">
+<div class="sentence">
+  <p>Making code  </p>
+  <span> 
+    <div class="rotate">
+    <p><span>easier</span></p>
+    <p><span>faster</span></p>
+
+    </div>
+  </span>
+  <p> to write...</p>
+  <br />
+  <p> one snippet at a time.</p>
+</div> 
+</div> 
+////////////////////////end of text rotate */
+
 
 var injectTapEventPlugin = require("react-tap-event-plugin");
 injectTapEventPlugin();
@@ -17,6 +41,7 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
+                  showForm: 'false',
                   searchTerm: '',
                   sortByTerm: '',
                   snippetsToDisplay: [ ]
@@ -26,6 +51,7 @@ class App extends Component {
    this.handleNewSnippet = this.handleNewSnippet.bind(this);
    this.handleSearch = this.handleSearch.bind(this);
    this.handleSearch = this.handleSearch.bind(this);
+   this.handleClick = this.handleClick.bind(this);
   }//end constructor
 
   componentWillMount(){
@@ -49,9 +75,17 @@ class App extends Component {
       // this.setState({snippetsToDisplay: response.data});
       //console.log(this.state.snippetsToDisplay)})
     .catch( (error) => { console.log("handleGet received an error")})
+    this.setState({searchTerm: ''})
 
   }
-  
+
+  handleClick = (e) =>{
+    if(this.state.showForm){
+      this.setState({showForm: false})
+    } else {
+      this.setState({showForm: true})
+    }
+  }
 
     handleGet = () => {
       axios.get('/api/snippets').then( (response) => {
@@ -73,50 +107,64 @@ class App extends Component {
 
 
   render(){
-
+const my_mui_styles = {
+  inputColor: {
+    color: "white"
+  }
+}
 
     return (
     <MuiThemeProvider>
 
-       <div className= "appBar">
-          <AppBar
-            title="SNIPPi"
-            iconClassNameRight="muidocs-icon-navigation-expand-more"
-          />
-        <div className= "searchField" />
-            <FloatingActionButton mini={true} secondary={true} >
-            <ContentAdd />
-            </FloatingActionButton>
+      
+
+      <div className= "appBar">
+
+        <div className="header-bar">
+          <h3 className="logo">Snippeti</h3>
+          <div onClick ={this.handleClick} className="newSnippit"><a> + Snippet </a></div>
+          </div>
+
+      
        </div>
 
-    <div className="hero-wrapper">
-        <div className="hero">
-            <h1>Making code easier|faster to write | , one snippet at a time.</h1>
-            <TextField
-                    hintText="Search by keyword"
-                    name = "searchTerm" 
-                    type="text" 
-                    value={this.state.searchTerm} 
-                    onChange={this.handleChange} />
-            <RaisedButton label="Submit" primary type = "submit" value= "Submit" onClick = {this.handleSearch} />
-            <div>{this.state.searchTerm}</div>
+<div className="hero-wrapper">
+
+    <div className="hero">
+        <div className="hero-text">
+          <h1>Making code easier to write... </h1>
+          <h1 className="h1-indent">one snippet at a time. </h1>
+        </div>
+
+        <div className="search-field">
+              <div className="input-field">
+                <TextField
+                        style= {{background: "white"}}
+                        hintText="Search by keyword"
+                        name = "searchTerm" 
+                        type="text" 
+                        value={this.state.searchTerm} 
+                        onChange={this.handleChange} />
+              </div>
+
+             <RaisedButton label="Submit" primary type = "submit" value= "Submit" onClick = {this.handleSearch} />
         </div>
         
-    <div className="form-wrapper">
-        <div><Form receiveSnippet = {this.handleNewSnippet} /></div>
     </div>
-              <button 
-                      onClick={ this.handleGet }>
-                Axios.Get Test
-              </button>
-      <div className= "snippetList">
-              <SnippetList sortByTerm = {this.state.sortByTerm} snippetArray = {this.state.snippetsToDisplay} />
-      </div>
-          
-      
-    </div> 
-          
-          
+        
+    <div className="form-wrapper">
+        <div> { this.state.showForm && <Form receiveSnippet = {this.handleNewSnippet} />} </div>
+    </div>
+
+</div> 
+              
+     <div className="mainContent">
+        <div className= "snippetList">
+                <SnippetList sortByTerm = {this.state.sortByTerm} snippetArray = {this.state.snippetsToDisplay} />
+        </div>
+     </div>
+
+
       
     </MuiThemeProvider>
     );

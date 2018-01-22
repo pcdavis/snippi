@@ -13,8 +13,14 @@ class Snippet extends Component {
   
     <CardTitle title={this.props.snippetObj.title} subtitle={this.props.snippetObj.subtitle} />
     <CardText>
+    By: {this.props.snippetObj.name}
+    </CardText>
+    <CardText>
     {this.props.snippetObj.snippetText}
     </CardText>
+    <div>
+        <p> </p>
+        </div>
     
 </Card>
 

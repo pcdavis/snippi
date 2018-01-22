@@ -1,26 +1,91 @@
+body{
+  margin: 0;
+  padding: 0;
+}
+
 .App {
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
 .appBar{
-  background-color: green;
+
 }
 
-.searchField{
-  background: blue;
+.header-bar{
+  height: 85px;
+  width: 100vw;
+  background-color:rgb(0, 188, 212) ;
+  display: flex;
+  flex-direction: row;
+  flex-wrap:nowrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  align-content: stretch;
+}
+.logo{
+  padding-left: 30px;
+  padding-bottom: 20px;
+  margin-top: -2px;
+  color: white;
+  font-size: 40px;
+  font-family: 'Pacifico',cursive;
+  font-weight: 100;
+}
+
+.newSnippit{
+  margin-right: 80px;
+  margin-bottom: -20px;
+  padding-top: 10px;
+  
+}
+.newSnippit a{
+  font-family: 'Pacifico',cursive;
+  color: white;
+  font-size: 30px;
+  
+
+}
+
+
+
+.muiAction{
+
   height: 40px;
+  width: 50px;
+  position: fixed;
+  top: 70px;
+  right: 30px;
 }
 
 .hero{
   width: 100%;
   height: 350px;
   background-color: lightgray;
+  background: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ),url('./assets/code.jpg');
+  background-size: cover;
+  color: white;
 }
+
+.hero::before{
+  background-color:black;
+}
+.hero-text{
+  margin-left: 90px;
+  font-size: 26px;
+}
+.h1-indent{
+  margin-left: 198px;
+}
+.search-field{
+  margin-left: 460px;
+}
+
+.input-field{
+  display: inline-block;
+  padding-right: 15px;
+  color: white;
+}
+
 .hero-wrapper{
   display: flex;
   flex-direction: column;
@@ -31,11 +96,34 @@
   justify-content: center;
 }
 
-.snippetList{
-  width: 30vw;
-  margin: auto;
-  background-color: blue;
+.mainContent{
+  background-color: lightgray;
+  padding-top: 20px;
 }
+
+.snippetList{
+  width: 40vw;
+  margin: auto;
+
+}
+
+/* The following CSS is to override materialui styles */
+.or-white{
+  color: white;
+}
+
+
+
+/* The following CSS is to make the words rotate */
+.rotate{
+  box-sizing: border-box;
+	font-size: 72px;
+}
+
+
+
+
+/* The above CSS is to make the words rotate */
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }

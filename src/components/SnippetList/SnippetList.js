@@ -1,5 +1,5 @@
 import React from 'react';
-import Snippet from '../Snippet/Snippet'
+import Snippet from '../Snippet/Snippet';
 
 class SnippetList extends React.Component {
   render(){

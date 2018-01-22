@@ -16,7 +16,7 @@ app.listen(port, () => {
 
 app.post('/api/snippets/new', control.create);
 app.get('/api/snippets', control.read);
-app.get('/api/snippets/:tags', control.tags);
+app.get('/api/snippets/:term', control.searchTerm);
 // app.put('/api/snippets/:update', control.update);
 // app.delete('/api/snippets/:id', control.delete);
 
